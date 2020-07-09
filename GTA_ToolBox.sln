@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTA_ToolBox", "GTA_ToolBox\GTA_ToolBox.csproj", "{FA108283-AAB2-498F-8E17-A837DF34BC23}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA108283-AAB2-498F-8E17-A837DF34BC23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA108283-AAB2-498F-8E17-A837DF34BC23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA108283-AAB2-498F-8E17-A837DF34BC23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA108283-AAB2-498F-8E17-A837DF34BC23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4EBF756E-60D9-4075-A7EA-6BFDCA2C3890}
+	EndGlobalSection
+EndGlobal
