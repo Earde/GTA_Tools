@@ -49,12 +49,14 @@
             this.lesterTicksTextbox = new System.Windows.Forms.TextBox();
             this.lesterTextbox = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.killTextbox = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // runButton
             // 
             this.runButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.runButton.Location = new System.Drawing.Point(12, 180);
+            this.runButton.Location = new System.Drawing.Point(10, 231);
             this.runButton.Name = "runButton";
             this.runButton.Size = new System.Drawing.Size(254, 32);
             this.runButton.TabIndex = 0;
@@ -98,7 +100,7 @@
             this.pssTextbox.Name = "pssTextbox";
             this.pssTextbox.Size = new System.Drawing.Size(142, 20);
             this.pssTextbox.TabIndex = 4;
-            this.pssTextbox.Text = "Control+Z";
+            this.pssTextbox.Text = "P";
             // 
             // toolsLabel
             // 
@@ -127,7 +129,7 @@
             this.armorTextbox.Name = "armorTextbox";
             this.armorTextbox.Size = new System.Drawing.Size(142, 20);
             this.armorTextbox.TabIndex = 8;
-            this.armorTextbox.Text = "Control+X";
+            this.armorTextbox.Text = "6";
             // 
             // label3
             // 
@@ -144,7 +146,7 @@
             this.mmiTextbox.Name = "mmiTextbox";
             this.mmiTextbox.Size = new System.Drawing.Size(142, 20);
             this.mmiTextbox.TabIndex = 10;
-            this.mmiTextbox.Text = "Control+C";
+            this.mmiTextbox.Text = "7";
             // 
             // label5
             // 
@@ -162,7 +164,7 @@
             this.mmiTicksTextbox.Name = "mmiTicksTextbox";
             this.mmiTicksTextbox.Size = new System.Drawing.Size(23, 20);
             this.mmiTicksTextbox.TabIndex = 11;
-            this.mmiTicksTextbox.Text = "8";
+            this.mmiTicksTextbox.Text = "9";
             this.mmiTicksTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label6
@@ -190,7 +192,7 @@
             this.mechTicksTextbox.Name = "mechTicksTextbox";
             this.mechTicksTextbox.Size = new System.Drawing.Size(23, 20);
             this.mechTicksTextbox.TabIndex = 15;
-            this.mechTicksTextbox.Text = "8";
+            this.mechTicksTextbox.Text = "11";
             this.mechTicksTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // mechTextbox
@@ -199,7 +201,7 @@
             this.mechTextbox.Name = "mechTextbox";
             this.mechTextbox.Size = new System.Drawing.Size(142, 20);
             this.mechTextbox.TabIndex = 14;
-            this.mechTextbox.Text = "Control+V";
+            this.mechTextbox.Text = "8";
             // 
             // label8
             // 
@@ -226,7 +228,7 @@
             this.lesterTicksTextbox.Name = "lesterTicksTextbox";
             this.lesterTicksTextbox.Size = new System.Drawing.Size(23, 20);
             this.lesterTicksTextbox.TabIndex = 19;
-            this.lesterTicksTextbox.Text = "8";
+            this.lesterTicksTextbox.Text = "14";
             this.lesterTicksTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lesterTextbox
@@ -235,7 +237,7 @@
             this.lesterTextbox.Name = "lesterTextbox";
             this.lesterTextbox.Size = new System.Drawing.Size(142, 20);
             this.lesterTextbox.TabIndex = 18;
-            this.lesterTextbox.Text = "Control+B";
+            this.lesterTextbox.Text = "9";
             // 
             // label10
             // 
@@ -246,11 +248,30 @@
             this.label10.TabIndex = 17;
             this.label10.Text = "Call Lester:";
             // 
+            // killTextbox
+            // 
+            this.killTextbox.Location = new System.Drawing.Point(122, 180);
+            this.killTextbox.Name = "killTextbox";
+            this.killTextbox.Size = new System.Drawing.Size(142, 20);
+            this.killTextbox.TabIndex = 22;
+            this.killTextbox.Text = "F12";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(13, 183);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(48, 13);
+            this.label12.TabIndex = 21;
+            this.label12.Text = "Kill GTA:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(366, 224);
+            this.ClientSize = new System.Drawing.Size(366, 275);
+            this.Controls.Add(this.killTextbox);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.lesterTicksTextbox);
             this.Controls.Add(this.lesterTextbox);
@@ -302,6 +323,8 @@
         public System.Windows.Forms.TextBox lesterTicksTextbox;
         public System.Windows.Forms.TextBox lesterTextbox;
         private System.Windows.Forms.Label label10;
+        public System.Windows.Forms.TextBox killTextbox;
+        private System.Windows.Forms.Label label12;
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using Gma.System.MouseKeyHook;
+using GTA_ToolBox.Actions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,17 +15,29 @@ namespace GTA_ToolBox
         private bool isExecuting = false, isCapturing = false;
         private System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
         private Settings settings = new Settings();
+        private List<AbstractAction> actions = new List<AbstractAction>();
 
         public Form1()
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            settings.Load(this);
+            LoadActions();
+            settings.Load(this, actions);
             GetProcess(null, null);
             timer.Tick += new EventHandler(GetProcess);
             timer.Interval = 5000;
             timer.Start();
+        }
+
+        private void LoadActions()
+        {
+            actions.Add(new SoloSessionAction());
+            actions.Add(new ArmorAction());
+            actions.Add(new MMIAction(this.mmiTicksTextbox));
+            actions.Add(new MechanicAction(this.mechTicksTextbox));
+            actions.Add(new LesterAction(this.lesterTicksTextbox));
+            actions.Add(new KillAction());
         }
 
         private void runButton_Click(object sender, EventArgs e)
@@ -34,8 +47,9 @@ namespace GTA_ToolBox
                 try
                 {
                     StartCapturing();
-                    settings.Save(this);
-                } catch
+                    settings.Save(this, actions);
+                }
+                catch
                 {
                     statusLabel.ForeColor = Color.Red;
                     toolsLabel.Text = "ERROR!";
@@ -47,11 +61,12 @@ namespace GTA_ToolBox
         {
             var assignments = new Dictionary<Combination, Action>
             {
-                {Combination.FromString(pssTextbox.Text), PrivateSoloSession},
-                {Combination.FromString(armorTextbox.Text), EquipArmor},
-                {Combination.FromString(mmiTextbox.Text), CallMMI},
-                {Combination.FromString(mechTextbox.Text), CallMechanic},
-                {Combination.FromString(lesterTextbox.Text), CallLester}
+                {Combination.FromString(pssTextbox.Text), () => actions[0].Execute(gta)},
+                {Combination.FromString(armorTextbox.Text), () => actions[1].Execute(gta)},
+                {Combination.FromString(mmiTextbox.Text), () => actions[2].Execute(gta)},
+                {Combination.FromString(mechTextbox.Text), () => actions[3].Execute(gta)},
+                {Combination.FromString(lesterTextbox.Text), () => actions[4].Execute(gta)},
+                {Combination.FromString(killTextbox.Text), () => actions[5].Execute(gta)}
             };
             Hook.GlobalEvents().OnCombination(assignments);
             toolsLabel.Text = "Active";
@@ -67,6 +82,7 @@ namespace GTA_ToolBox
             mechTicksTextbox.Enabled = false;
             lesterTextbox.Enabled = false;
             lesterTicksTextbox.Enabled = false;
+            killTextbox.Enabled = false;
         }
 
         void GetProcess(object sender, EventArgs ea)
@@ -81,93 +97,11 @@ namespace GTA_ToolBox
                 gta = null;
                 statusLabel.Text = "Inactive";
                 statusLabel.ForeColor = Color.Red;
-            } else
+            }
+            else
             {
                 statusLabel.Text = "Active";
                 statusLabel.ForeColor = Color.Green;
-            }
-        }
-
-        void PrivateSoloSession()
-        {
-            if (gta != null && !gta.HasExited && !isExecuting)
-            {
-                isExecuting = true;
-                ProcessExtension.Suspend(gta);
-                Thread.Sleep(15000);
-                ProcessExtension.Resume(gta);
-                isExecuting = false;
-            }
-        }
-
-        void EquipArmor()
-        {
-            if (gta != null && !gta.HasExited && !isExecuting)
-            {
-                isExecuting = true;
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.M);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.KeyDown);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.KeyDown);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.Enter);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.KeyDown);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.Enter);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.KeyDown);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.KeyDown);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.KeyDown);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.KeyDown);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.Enter);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.Escape);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.Escape);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.Escape);
-                isExecuting = false;
-            }
-        }
-
-        void CallMMI()
-        {
-            int ticks;
-            if (!int.TryParse(mmiTicksTextbox.Text, out ticks))
-            {
-                ticks = 1;
-            }
-            CallPerson(ticks);
-        }
-
-        void CallMechanic()
-        {
-            int ticks;
-            if (!int.TryParse(mechTicksTextbox.Text, out ticks))
-            {
-                ticks = 1;
-            }
-            CallPerson(ticks);
-        }
-
-        void CallLester()
-        {
-            int ticks;
-            if (!int.TryParse(lesterTicksTextbox.Text, out ticks))
-            {
-                ticks = 1;
-            }
-            CallPerson(ticks);
-        }
-
-        void CallPerson(int ticks)
-        {
-            if (gta != null && !gta.HasExited && !isExecuting)
-            {
-                isExecuting = true;
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.ArrowUp, 1000);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.ArrowUp, 250);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.ArrowRight, 250);
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.Enter, 1000);
-                for (int i = 0; i < ticks; i++)
-                {
-                    WindowsMessageService.SendSingleKey((short)DirectXKeys.ArrowUp, 250);
-                }
-                WindowsMessageService.SendSingleKey((short)DirectXKeys.Enter);
-                isExecuting = false;
             }
         }
     }

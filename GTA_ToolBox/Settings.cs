@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GTA_ToolBox.Actions;
 using Newtonsoft.Json;
 
 namespace GTA_ToolBox
@@ -12,37 +13,34 @@ namespace GTA_ToolBox
     {
         private readonly string fileName = "\\gtaToolSettings.json";
 
-        public void Save(Form1 form)
+        public void Save(Form1 form, List<AbstractAction> actions)
         {
-            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>()
+            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
+            foreach (AbstractAction action in actions)
             {
-                { "pss", form.pssTextbox.Text },
-                { "ea", form.armorTextbox.Text },
-                { "cm", form.mmiTextbox.Text },
-                { "mech", form.mechTextbox.Text },
-                { "mecht", form.mechTicksTextbox.Text },
-                { "lester", form.lesterTextbox.Text },
-                { "lestert", form.lesterTicksTextbox.Text }
-
-            };
+                Dictionary<string, string> dict = action.GetSavables(form);
+                foreach (KeyValuePair<string, string> keyValuePair in dict)
+                {
+                    keyValuePairs.Add(keyValuePair.Key, keyValuePair.Value);
+                }
+            }
             string json = JsonConvert.SerializeObject(keyValuePairs);
             File.WriteAllText(Directory.GetCurrentDirectory() + fileName, json);
         }
 
-        public void Load(Form1 form)
+        public void Load(Form1 form, List<AbstractAction> actions)
         {
             try
             {
                 string json = File.ReadAllText(Directory.GetCurrentDirectory() + fileName);
                 Dictionary<string, string> keyValuePairs = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
-                form.pssTextbox.Text = keyValuePairs["pss"];
-                form.armorTextbox.Text = keyValuePairs["ea"];
-                form.mmiTextbox.Text = keyValuePairs["cm"];
-                form.mmiTicksTextbox.Text = keyValuePairs["cmt"];
-                form.mechTextbox.Text = keyValuePairs["mech"];
-                form.mechTicksTextbox.Text = keyValuePairs["mecht"];
-                form.lesterTextbox.Text = keyValuePairs["lester"];
-                form.lesterTicksTextbox.Text = keyValuePairs["lestert"];
+                foreach(KeyValuePair<string, string> keyValuePair in keyValuePairs)
+                {
+                    foreach (AbstractAction action in actions)
+                    {
+                        action.Load(form, keyValuePair.Key, keyValuePair.Value);
+                    }
+                }
             }
             catch { }
         }

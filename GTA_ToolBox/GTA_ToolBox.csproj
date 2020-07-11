@@ -52,6 +52,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\AbstractAction.cs" />
+    <Compile Include="Actions\MechanicAction.cs" />
+    <Compile Include="Actions\LesterAction.cs" />
+    <Compile Include="Actions\MMIAction.cs" />
+    <Compile Include="Actions\ArmorAction.cs" />
+    <Compile Include="Actions\KillAction.cs" />
+    <Compile Include="Actions\SoloSessionAction.cs" />
     <Compile Include="DirectXKeys.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
