@@ -12,7 +12,7 @@ namespace GTA_ToolBox
     public partial class Form1 : Form
     {
         private Process gta = null;
-        private bool isExecuting = false, isCapturing = false;
+        private bool isCapturing = false;
         private System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
         private Settings settings = new Settings();
         private List<AbstractAction> actions = new List<AbstractAction>();
@@ -38,6 +38,7 @@ namespace GTA_ToolBox
             actions.Add(new MechanicAction(this.mechTicksTextbox));
             actions.Add(new LesterAction(this.lesterTicksTextbox));
             actions.Add(new KillAction());
+            actions.Add(new Kill_Internet());
         }
 
         private void runButton_Click(object sender, EventArgs e)
@@ -66,7 +67,8 @@ namespace GTA_ToolBox
                 {Combination.FromString(mmiTextbox.Text), () => actions[2].Execute(gta)},
                 {Combination.FromString(mechTextbox.Text), () => actions[3].Execute(gta)},
                 {Combination.FromString(lesterTextbox.Text), () => actions[4].Execute(gta)},
-                {Combination.FromString(killTextbox.Text), () => actions[5].Execute(gta)}
+                {Combination.FromString(killTextbox.Text), () => actions[5].Execute(gta)},
+                {Combination.FromString(killInternetTextbox.Text), () => actions[6].Execute(gta)}
             };
             Hook.GlobalEvents().OnCombination(assignments);
             toolsLabel.Text = "Active";
@@ -83,6 +85,7 @@ namespace GTA_ToolBox
             lesterTextbox.Enabled = false;
             lesterTicksTextbox.Enabled = false;
             killTextbox.Enabled = false;
+            killInternetTextbox.Enabled = false;
         }
 
         void GetProcess(object sender, EventArgs ea)

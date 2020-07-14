@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\AbstractAction.cs" />
+    <Compile Include="Actions\Kill_Internet.cs" />
     <Compile Include="Actions\MechanicAction.cs" />
     <Compile Include="Actions\LesterAction.cs" />
     <Compile Include="Actions\MMIAction.cs" />

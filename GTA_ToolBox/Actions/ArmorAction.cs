@@ -23,6 +23,7 @@ namespace GTA_ToolBox.Actions
             WindowsMessageService.SendSingleKey((short)DirectXKeys.M);
             WindowsMessageService.SendSingleKey((short)DirectXKeys.KeyDown);
             WindowsMessageService.SendSingleKey((short)DirectXKeys.KeyDown);
+            WindowsMessageService.SendSingleKey((short)DirectXKeys.KeyDown);
             WindowsMessageService.SendSingleKey((short)DirectXKeys.Enter);
             WindowsMessageService.SendSingleKey((short)DirectXKeys.KeyDown);
             WindowsMessageService.SendSingleKey((short)DirectXKeys.Enter);

@@ -51,14 +51,16 @@
             this.label10 = new System.Windows.Forms.Label();
             this.killTextbox = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.killInternetTextbox = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // runButton
             // 
             this.runButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.runButton.Location = new System.Drawing.Point(10, 231);
+            this.runButton.Location = new System.Drawing.Point(16, 232);
             this.runButton.Name = "runButton";
-            this.runButton.Size = new System.Drawing.Size(254, 32);
+            this.runButton.Size = new System.Drawing.Size(250, 32);
             this.runButton.TabIndex = 0;
             this.runButton.Text = "Run";
             this.runButton.UseVisualStyleBackColor = true;
@@ -100,7 +102,7 @@
             this.pssTextbox.Name = "pssTextbox";
             this.pssTextbox.Size = new System.Drawing.Size(142, 20);
             this.pssTextbox.TabIndex = 4;
-            this.pssTextbox.Text = "P";
+            this.pssTextbox.Text = "Control+P";
             // 
             // toolsLabel
             // 
@@ -129,7 +131,7 @@
             this.armorTextbox.Name = "armorTextbox";
             this.armorTextbox.Size = new System.Drawing.Size(142, 20);
             this.armorTextbox.TabIndex = 8;
-            this.armorTextbox.Text = "6";
+            this.armorTextbox.Text = "Control+U";
             // 
             // label3
             // 
@@ -146,7 +148,7 @@
             this.mmiTextbox.Name = "mmiTextbox";
             this.mmiTextbox.Size = new System.Drawing.Size(142, 20);
             this.mmiTextbox.TabIndex = 10;
-            this.mmiTextbox.Text = "7";
+            this.mmiTextbox.Text = "Control+N";
             // 
             // label5
             // 
@@ -201,7 +203,7 @@
             this.mechTextbox.Name = "mechTextbox";
             this.mechTextbox.Size = new System.Drawing.Size(142, 20);
             this.mechTextbox.TabIndex = 14;
-            this.mechTextbox.Text = "8";
+            this.mechTextbox.Text = "Control+I";
             // 
             // label8
             // 
@@ -237,7 +239,7 @@
             this.lesterTextbox.Name = "lesterTextbox";
             this.lesterTextbox.Size = new System.Drawing.Size(142, 20);
             this.lesterTextbox.TabIndex = 18;
-            this.lesterTextbox.Text = "9";
+            this.lesterTextbox.Text = "Control+L";
             // 
             // label10
             // 
@@ -254,7 +256,7 @@
             this.killTextbox.Name = "killTextbox";
             this.killTextbox.Size = new System.Drawing.Size(142, 20);
             this.killTextbox.TabIndex = 22;
-            this.killTextbox.Text = "F12";
+            this.killTextbox.Text = "Control+Delete";
             // 
             // label12
             // 
@@ -265,11 +267,30 @@
             this.label12.TabIndex = 21;
             this.label12.Text = "Kill GTA:";
             // 
+            // killInternetTextbox
+            // 
+            this.killInternetTextbox.Location = new System.Drawing.Point(122, 206);
+            this.killInternetTextbox.Name = "killInternetTextbox";
+            this.killInternetTextbox.Size = new System.Drawing.Size(142, 20);
+            this.killInternetTextbox.TabIndex = 24;
+            this.killInternetTextbox.Text = "Control+End";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(13, 209);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(62, 13);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "Kill Internet:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(366, 275);
+            this.Controls.Add(this.killInternetTextbox);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.killTextbox);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label9);
@@ -325,6 +346,8 @@
         private System.Windows.Forms.Label label10;
         public System.Windows.Forms.TextBox killTextbox;
         private System.Windows.Forms.Label label12;
+        public System.Windows.Forms.TextBox killInternetTextbox;
+        private System.Windows.Forms.Label label11;
     }
 }
 
