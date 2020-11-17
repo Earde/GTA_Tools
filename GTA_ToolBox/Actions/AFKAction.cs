@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GTA_ToolBox.Actions
 {
-    class SoloSessionAction : AbstractAction
+    class AFKAction : AbstractAction
     {
-        public SoloSessionAction(TextBox textBox) : base(textBox, "soloSession") { }
+        private bool AFK = false;
+
+        public AFKAction(TextBox textBox) : base(textBox, "afk") { }
 
         public override Dictionary<string, string> GetSavables()
         {
@@ -20,9 +21,9 @@ namespace GTA_ToolBox.Actions
 
         protected override void InnerExecute(Process gta)
         {
-            ProcessExtension.Suspend(gta);
-            Thread.Sleep(15000);
-            ProcessExtension.Resume(gta);
+            if (AFK) WindowsMessageService.SendKey((short)DirectXKeys.CapsLock, KeyFlag.KeyDown);
+            else WindowsMessageService.SendKey((short)DirectXKeys.CapsLock, KeyFlag.KeyUp);
+            AFK = !AFK;
         }
 
         protected override void InnerTickLoad(string keys)

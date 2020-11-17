@@ -11,16 +11,15 @@ namespace GTA_ToolBox.Actions
     class LesterAction : AbstractAction
     {
         TextBox tick;
-        public LesterAction(TextBox tick) : base("lester", tick.Name) {
+        public LesterAction(TextBox textBox, TextBox tick) : base(textBox, "lester", tick.Name) {
             this.tick = tick;
         }
 
-        public override Dictionary<string, string> GetSavables(Form1 form)
+        public override Dictionary<string, string> GetSavables()
         {
-            return new Dictionary<string, string> {
-                {id, form.lesterTextbox.Text },
-                {tick.Name, tick.Text }
-            };
+            Dictionary<string, string> output =  base.GetSavables();
+            output.Add(tick.Name, tick.Text);
+            return output;
         }
 
         protected override void InnerExecute(Process gta)
@@ -41,12 +40,7 @@ namespace GTA_ToolBox.Actions
             WindowsMessageService.SendSingleKey((short)DirectXKeys.Enter);
         }
 
-        protected override void InnerLoad(Form1 form, string keys)
-        {
-            form.lesterTextbox.Text = keys;
-        }
-
-        protected override void InnerTickLoad(Form1 form, string keys)
+        protected override void InnerTickLoad(string keys)
         {
             this.tick.Text = keys;
         }

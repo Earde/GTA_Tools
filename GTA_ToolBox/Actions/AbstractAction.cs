@@ -4,17 +4,20 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GTA_ToolBox.Actions
 {
     abstract class AbstractAction
     {
         public string id, tickId;
+        public TextBox textBox;
 
-        public AbstractAction(string id, string tickId = "none")
+        public AbstractAction(TextBox tb, string id, string tickId = "none")
         {
             this.id = id;
             this.tickId = tickId;
+            this.textBox = tb;
         }
 
         protected abstract void InnerExecute(Process gta);
@@ -27,20 +30,29 @@ namespace GTA_ToolBox.Actions
             }
         }
 
-        public abstract Dictionary<string, string> GetSavables(Form1 form);
+        public virtual Dictionary<string, string> GetSavables()
+        {
+            return new Dictionary<string, string>
+            {
+                { id, textBox.Text }
+            };
+        }
 
-        public void Load(Form1 form, string jsonId, string keys)
+        public void Load(string jsonId, string keys)
         {
             if (id.Equals(jsonId))
             {
-                InnerLoad(form, keys);
+                InnerLoad(keys);
             } else if (tickId.Equals(jsonId))
             {
-                InnerTickLoad(form, keys);
+                InnerTickLoad(keys);
             }
         }
 
-        protected abstract void InnerLoad(Form1 form, string keys);
-        protected abstract void InnerTickLoad(Form1 form, string keys);
+        protected void InnerLoad(string keys)
+        {
+            textBox.Text = keys;
+        }
+        protected abstract void InnerTickLoad(string keys);
     }
 }

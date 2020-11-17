@@ -53,12 +53,14 @@
             this.label12 = new System.Windows.Forms.Label();
             this.killInternetTextbox = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.afkTextBox = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // runButton
             // 
             this.runButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.runButton.Location = new System.Drawing.Point(16, 232);
+            this.runButton.Location = new System.Drawing.Point(15, 296);
             this.runButton.Name = "runButton";
             this.runButton.Size = new System.Drawing.Size(250, 32);
             this.runButton.TabIndex = 0;
@@ -284,11 +286,31 @@
             this.label11.TabIndex = 23;
             this.label11.Text = "Kill Internet:";
             // 
+            // afkTextBox
+            // 
+            this.afkTextBox.Location = new System.Drawing.Point(122, 232);
+            this.afkTextBox.Name = "afkTextBox";
+            this.afkTextBox.Size = new System.Drawing.Size(142, 20);
+            this.afkTextBox.TabIndex = 26;
+            this.afkTextBox.Text = "Control+K";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(13, 235);
+            this.label13.Name = "label13";
+            this.label13.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label13.Size = new System.Drawing.Size(30, 13);
+            this.label13.TabIndex = 25;
+            this.label13.Text = "AFK:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(366, 275);
+            this.ClientSize = new System.Drawing.Size(366, 340);
+            this.Controls.Add(this.afkTextBox);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.killInternetTextbox);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.killTextbox);
@@ -348,6 +370,8 @@
         private System.Windows.Forms.Label label12;
         public System.Windows.Forms.TextBox killInternetTextbox;
         private System.Windows.Forms.Label label11;
+        public System.Windows.Forms.TextBox afkTextBox;
+        private System.Windows.Forms.Label label13;
     }
 }
 

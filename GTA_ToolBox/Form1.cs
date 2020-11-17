@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -15,7 +16,7 @@ namespace GTA_ToolBox
         private bool isCapturing = false;
         private System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
         private Settings settings = new Settings();
-        private List<AbstractAction> actions = new List<AbstractAction>();
+        private Dictionary<TextBox, AbstractAction> textBoxActions = new Dictionary<TextBox, AbstractAction>();
 
         public Form1()
         {
@@ -23,7 +24,7 @@ namespace GTA_ToolBox
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             LoadActions();
-            settings.Load(this, actions);
+            settings.Load(this, textBoxActions.Values.ToList());
             GetProcess(null, null);
             timer.Tick += new EventHandler(GetProcess);
             timer.Interval = 5000;
@@ -32,13 +33,14 @@ namespace GTA_ToolBox
 
         private void LoadActions()
         {
-            actions.Add(new SoloSessionAction());
-            actions.Add(new ArmorAction());
-            actions.Add(new MMIAction(this.mmiTicksTextbox));
-            actions.Add(new MechanicAction(this.mechTicksTextbox));
-            actions.Add(new LesterAction(this.lesterTicksTextbox));
-            actions.Add(new KillAction());
-            actions.Add(new Kill_Internet());
+            textBoxActions.Add(pssTextbox, new SoloSessionAction(pssTextbox));
+            textBoxActions.Add(armorTextbox, new ArmorAction(armorTextbox));
+            textBoxActions.Add(mmiTextbox, new MMIAction(mmiTextbox, this.mmiTicksTextbox));
+            textBoxActions.Add(mechTextbox, new MechanicAction(mechTextbox, this.mechTicksTextbox));
+            textBoxActions.Add(lesterTextbox, new LesterAction(lesterTextbox, this.lesterTicksTextbox));
+            textBoxActions.Add(killTextbox, new KillAction(killTextbox));
+            textBoxActions.Add(killInternetTextbox, new Kill_InternetAction(killInternetTextbox));
+            textBoxActions.Add(afkTextBox, new AFKAction(afkTextBox));
         }
 
         private void runButton_Click(object sender, EventArgs e)
@@ -48,7 +50,7 @@ namespace GTA_ToolBox
                 try
                 {
                     StartCapturing();
-                    settings.Save(this, actions);
+                    settings.Save(textBoxActions.Values.ToList());
                 }
                 catch
                 {
@@ -60,32 +62,18 @@ namespace GTA_ToolBox
 
         private void StartCapturing()
         {
-            var assignments = new Dictionary<Combination, Action>
+            Dictionary<Combination, Action> assignments = new Dictionary<Combination, Action>();
+            foreach (KeyValuePair<TextBox, AbstractAction> kv in textBoxActions)
             {
-                {Combination.FromString(pssTextbox.Text), () => actions[0].Execute(gta)},
-                {Combination.FromString(armorTextbox.Text), () => actions[1].Execute(gta)},
-                {Combination.FromString(mmiTextbox.Text), () => actions[2].Execute(gta)},
-                {Combination.FromString(mechTextbox.Text), () => actions[3].Execute(gta)},
-                {Combination.FromString(lesterTextbox.Text), () => actions[4].Execute(gta)},
-                {Combination.FromString(killTextbox.Text), () => actions[5].Execute(gta)},
-                {Combination.FromString(killInternetTextbox.Text), () => actions[6].Execute(gta)}
-            };
+                assignments.Add(Combination.FromString(kv.Key.Text), () => kv.Value.Execute(gta));
+                kv.Key.Enabled = false;
+            }
             Hook.GlobalEvents().OnCombination(assignments);
             toolsLabel.Text = "Active";
             toolsLabel.ForeColor = Color.Green;
             isCapturing = true; // Prevent multiple capturing
             // Disable UI controls
             runButton.Enabled = false;
-            pssTextbox.Enabled = false;
-            armorTextbox.Enabled = false;
-            mmiTextbox.Enabled = false;
-            mmiTicksTextbox.Enabled = false;
-            mechTextbox.Enabled = false;
-            mechTicksTextbox.Enabled = false;
-            lesterTextbox.Enabled = false;
-            lesterTicksTextbox.Enabled = false;
-            killTextbox.Enabled = false;
-            killInternetTextbox.Enabled = false;
         }
 
         void GetProcess(object sender, EventArgs ea)

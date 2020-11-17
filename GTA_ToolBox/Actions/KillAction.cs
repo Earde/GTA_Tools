@@ -4,18 +4,17 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GTA_ToolBox.Actions
 {
     class KillAction : AbstractAction
     {
-        public KillAction() : base("kill") { }
+        public KillAction(TextBox textBox) : base(textBox, "kill") { }
 
-        public override Dictionary<string, string> GetSavables(Form1 form)
+        public override Dictionary<string, string> GetSavables()
         {
-            return new Dictionary<string, string> {
-                { id, form.killTextbox.Text }
-            };
+            return base.GetSavables();
         }
 
         protected override void InnerExecute(Process gta)
@@ -23,12 +22,7 @@ namespace GTA_ToolBox.Actions
             gta.Kill();
         }
 
-        protected override void InnerLoad(Form1 form, string keys)
-        {
-            form.killTextbox.Text = keys;
-        }
-
-        protected override void InnerTickLoad(Form1 form, string keys)
+        protected override void InnerTickLoad(string keys)
         {
             throw new NotImplementedException();
         }

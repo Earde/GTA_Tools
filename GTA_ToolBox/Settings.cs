@@ -13,12 +13,12 @@ namespace GTA_ToolBox
     {
         private readonly string fileName = "\\gtaToolSettings.json";
 
-        public void Save(Form1 form, List<AbstractAction> actions)
+        public void Save(List<AbstractAction> actions)
         {
             Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
             foreach (AbstractAction action in actions)
             {
-                Dictionary<string, string> dict = action.GetSavables(form);
+                Dictionary<string, string> dict = action.GetSavables();
                 foreach (KeyValuePair<string, string> keyValuePair in dict)
                 {
                     keyValuePairs.Add(keyValuePair.Key, keyValuePair.Value);
@@ -38,7 +38,7 @@ namespace GTA_ToolBox
                 {
                     foreach (AbstractAction action in actions)
                     {
-                        action.Load(form, keyValuePair.Key, keyValuePair.Value);
+                        action.Load(keyValuePair.Key, keyValuePair.Value);
                     }
                 }
             }

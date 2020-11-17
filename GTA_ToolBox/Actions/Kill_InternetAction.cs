@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GTA_ToolBox.Actions
 {
-    class SoloSessionAction : AbstractAction
+    class Kill_InternetAction : AbstractAction
     {
-        public SoloSessionAction(TextBox textBox) : base(textBox, "soloSession") { }
+        public Kill_InternetAction(TextBox textBox) : base(textBox, "killInternet") { }
 
         public override Dictionary<string, string> GetSavables()
         {
@@ -20,9 +21,20 @@ namespace GTA_ToolBox.Actions
 
         protected override void InnerExecute(Process gta)
         {
-            ProcessExtension.Suspend(gta);
-            Thread.Sleep(15000);
-            ProcessExtension.Resume(gta);
+            DisableAdapter();
+            Thread.Sleep(5000);
+            EnableAdapter();
+
+        }
+
+        private static void EnableAdapter()
+        {
+            Process.Start("ipconfig", "/renew");
+        }
+
+        private static void DisableAdapter()
+        {
+            Process.Start("ipconfig", "/release");
         }
 
         protected override void InnerTickLoad(string keys)

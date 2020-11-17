@@ -14,6 +14,7 @@ namespace GTA_ToolBox
         KeyDown = 0xD0,
         Enter = 0x1C,
         ArrowUp = 0xC8,
-        ArrowRight = 0xCD
+        ArrowRight = 0xCD,
+        CapsLock = 0x3A
     }
 }

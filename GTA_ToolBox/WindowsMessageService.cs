@@ -65,7 +65,7 @@ namespace GTA_ToolBox
         [DllImport("user32.dll")]
         private static extern UInt32 SendInput(UInt32 nInputs, [MarshalAs(UnmanagedType.LPArray, SizeConst = 1)] Input[] pInputs, Int32 cbSize);
 
-        public static void SendInput(short keycode, KeyFlag keyFlag)
+        private static void SendInput(short keycode, KeyFlag keyFlag)
         {
             var inputData = new Input[1];
 

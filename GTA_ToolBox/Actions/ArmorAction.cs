@@ -4,18 +4,17 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GTA_ToolBox.Actions
 {
     class ArmorAction : AbstractAction
     {
-        public ArmorAction() : base("armor") { }
+        public ArmorAction(TextBox textBox) : base(textBox, "armor") { }
 
-        public override Dictionary<string, string> GetSavables(Form1 form)
+        public override Dictionary<string, string> GetSavables()
         {
-            return new Dictionary<string, string> {
-                { id, form.armorTextbox.Text }
-            };
+            return base.GetSavables();
         }
 
         protected override void InnerExecute(Process gta)
@@ -37,12 +36,7 @@ namespace GTA_ToolBox.Actions
             WindowsMessageService.SendSingleKey((short)DirectXKeys.Escape);
         }
 
-        protected override void InnerLoad(Form1 form, string keys)
-        {
-            form.armorTextbox.Text = keys;
-        }
-
-        protected override void InnerTickLoad(Form1 form, string keys)
+        protected override void InnerTickLoad(string keys)
         {
             throw new NotImplementedException();
         }
